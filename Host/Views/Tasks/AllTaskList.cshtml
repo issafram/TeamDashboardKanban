@@ -1,0 +1,66 @@
+﻿@using Data
+@model Host.Models.AllTaskListModel
+
+@{
+    ViewBag.Title = "Team Dashboard Kanban";
+}
+
+<h2>@ViewBag.Message</h2>
+
+
+<div id="kanban-container" style="display: inline-block; width: 100%;">
+        
+    <div id="kanban-left">
+        <div class="kanban-header">
+            Completed
+        </div>
+
+        @foreach (Task item in Model.Tasks.Where(x => x.TaskProgressStatus == TaskProgressStatus.CompletedLastWeek).OrderByDescending(x => x.ActualCompletionDate.Value))
+        {
+                
+            <div class="task completed">
+                <div style="float: right; padding-left: 5px;">
+                    <img class="person-thumbnail" src="@Url.Action("Images", "Tasks", new { id = item.AssignedTo })" alt="@item.AssignedTo" />
+                </div>
+                @Html.DisplayTextFor(t => item.FormattedName)
+            </div>
+            <div style="clear:left"></div>
+        }
+    </div>
+        
+    <div id="kanban-center">
+        <div class="kanban-header">
+            In Progress
+        </div>
+
+        @foreach (Task item in Model.Tasks.Where(x => x.TaskProgressStatus == TaskProgressStatus.InProgressThisWeek).OrderBy(x => x.PlannedDate))
+        {
+            <div class="task inProgress">
+                <div style="float: right; padding-left: 5px;">
+                    <img class="person-thumbnail" src="@Url.Action("Images", "Tasks", new { id = item.AssignedTo })" alt="@item.AssignedTo" />
+                </div>
+                @Html.DisplayTextFor(t => item.FormattedName)
+            </div>
+            <div style="clear:left"></div>
+        }
+    </div>
+
+        
+
+    <div id="kanban-right">
+        <div class="kanban-header">
+            To Be Completed
+        </div>
+
+        @foreach (Task item in Model.Tasks.Where(x => x.TaskProgressStatus == TaskProgressStatus.ToCompleteThisWeek).OrderBy(x=>x.PlannedDate))
+        {
+            <div class="task toBeCompleted">
+                <div style="float: right; padding-left: 5px;">
+                    <img class="person-thumbnail" src="@Url.Action("Images", "Tasks", new { id = item.AssignedTo })" alt="@item.AssignedTo" />
+                </div>
+                @Html.DisplayTextFor(t => item.FormattedName)
+            </div>
+            <div style="clear:left"></div>
+        }
+    </div>
+</div>

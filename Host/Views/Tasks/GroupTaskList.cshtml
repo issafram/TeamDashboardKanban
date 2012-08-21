@@ -1,0 +1,78 @@
+﻿@using Data
+@model Host.Models.WeeklyTaskListModel
+
+@{
+    ViewBag.Title = "Team Dashboard Kanban";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Message</h2>
+
+
+<div id="kanban-container" style="display: inline-block; width: 100%;">
+        
+    <div id="kanban-left">
+        <div class="kanban-header">
+            Completed Last Week
+        </div>
+
+        @foreach (String assignedTo in Model.Tasks.Where(x=>x.TaskProgressStatus==TaskProgressStatus.CompletedLastWeek).Select(x=>x.AssignedTo).Distinct()) {
+            <div class="task completed">
+                <div style="float: right; padding-left: 5px;">
+                    <img class="person-thumbnail" src="@Url.Action("Images","Tasks", new {id = assignedTo})" alt="@assignedTo" />
+                </div>
+
+                @foreach (Task task in Model.Tasks.Where(x => x.AssignedTo == assignedTo && x.TaskProgressStatus == TaskProgressStatus.CompletedLastWeek))
+                {
+                    <span class="taskName">@Model.FormatName(task.Name)</span><br/>
+                }
+                
+            </div>
+            <div style="clear: left"></div>
+        }
+    </div>
+        
+    <div id="kanban-center">
+        <div class="kanban-header">
+            In Progress
+        </div>
+
+        @foreach (String assignedTo in Model.Tasks.Where(x=>x.TaskProgressStatus==TaskProgressStatus.InProgressThisWeek).Select(x=>x.AssignedTo).Distinct()) {
+            <div class="task inProgress">
+                <div style="float: right; padding-left: 5px;">
+                    <img class="person-thumbnail" src="@Url.Action("Images","Tasks", new {id = assignedTo})" alt="@assignedTo" />
+                </div>
+
+                @foreach (Task task in Model.Tasks.Where(x => x.AssignedTo == assignedTo && x.TaskProgressStatus == TaskProgressStatus.InProgressThisWeek))
+                {
+                    <span class="taskName">@Model.FormatName(task.Name)</span><br/>
+                }
+                
+            </div>
+            <div style="clear: left"></div>
+        }
+    </div>
+
+        
+
+    <div id="kanban-right">
+        <div class="kanban-header">
+            To Be Completed
+        </div>
+
+        @foreach (String assignedTo in Model.Tasks.Where(x=>x.TaskProgressStatus==TaskProgressStatus.ToCompleteThisWeek).Select(x=>x.AssignedTo).Distinct()) {
+            <div class="task toBeCompleted">
+                <div style="float: right; padding-left: 5px;">
+                    <img class="person-thumbnail" src="@Url.Action("Images","Tasks", new {id = assignedTo})" alt="@assignedTo" />
+                </div>
+
+                @foreach (Task task in Model.Tasks.Where(x => x.AssignedTo == assignedTo && x.TaskProgressStatus == TaskProgressStatus.ToCompleteThisWeek))
+                {
+                    <span class="taskName">@Model.FormatName(task.Name)</span><br/>
+                }
+                
+            </div>
+            <div style="clear: left"></div>
+        }
+    </div>
+</div>

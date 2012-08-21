@@ -1,0 +1,47 @@
+﻿@using Data
+@model Host.Models.WeeklyTaskListModel
+
+@{
+    ViewBag.Title = "Team Dashboard Kanban";
+}
+
+<h2>@ViewBag.Message</h2>
+
+<div id="kanban-container" style="display: inline-block; width: 100%;">  
+    @foreach (String name in Model.Tasks.Select(x => x.AssignedTo).Distinct().OrderByDescending(x => Model.Tasks.Where(y => y.AssignedTo == x).Count(z => z.TaskProgressStatus == TaskProgressStatus.InProgressThisWeek)).OrderByDescending(x => Model.Tasks.Where(y => y.AssignedTo == x).Count(z => z.TaskProgressStatus == TaskProgressStatus.CompletedLastWeek)))
+    {
+        int completedLastWeek = this.Model.Tasks.Count(x => x.AssignedTo == name && x.TaskProgressStatus == TaskProgressStatus.CompletedLastWeek);
+        int inProgress = this.Model.Tasks.Count(x => x.AssignedTo == name && x.TaskProgressStatus == TaskProgressStatus.InProgressThisWeek);
+        int toComplete = this.Model.Tasks.Count(x => x.AssignedTo == name && x.TaskProgressStatus == TaskProgressStatus.ToCompleteThisWeek);
+        decimal total = completedLastWeek + inProgress + toComplete;
+        <div class="task">  @*id="completed"*@
+            
+            <div style="float: right; padding-left: 5px;">
+                <img class="person-thumbnail" src="@Url.Action("Images", "Tasks", new { id = name })" alt="@name" />
+            </div>
+            Completed Last Week: @completedLastWeek<br/>
+            In Progress: @inProgress<br/>
+            To Complete: @toComplete<br/>
+            <div style="width: 100%; padding: 0px; margin: 0px; overflow: hidden;">
+                    @if (completedLastWeek > 0)
+                    {
+                        <div class="summaryProgressCompletedLastWeek" style="float: left; width: @Decimal.Round(((@completedLastWeek / @total) * 100) , 0)%">@completedLastWeek</div>
+                    }
+                    
+                    @if (inProgress > 0)
+                    {
+                        <div class="summaryProgressInProgress" style="float:left; width: @Decimal.Round(((@inProgress / @total) * 100) , 0)%">@inProgress</div>
+                    }
+                    
+                    @if (toComplete > 0)
+                    {
+                    //width: @Decimal.Round(((@toComplete / @total) * 100), 0) %
+                        //float:left; width: @(100-@runningTotalPercent)%; 
+                        <div class="summaryProgressToComplete" style="overflow: hidden;">@toComplete</div>
+                    }
+                </div>
+        </div>
+        <div style="clear:left"></div>
+        <br/>
+    }
+</div>
