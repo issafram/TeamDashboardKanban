@@ -20,8 +20,8 @@ The code in this project is licensed under the GPL v3, per the terms of the incl
 ## Author
 ### Issa Fram
 <ul>
-	<li>[StackOverflow] [1]</li>
-	<li>[LinkedIn] [2]</li>
+	<li>[1][StackOverflow]</li>
+	<li>[2][LinkedIn]</li>
 </ul>
 
 
