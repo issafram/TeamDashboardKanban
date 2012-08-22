@@ -13,3 +13,17 @@ TDK is an MVC based web application designed to allow for easy visualization of 
 <ul>
 	<li>Initial Release</li>
 </ul>
+
+## License
+The code in this project is licensed under the GPL v3, per the terms of the included LICENSE file.
+
+## Author
+### Issa Fram
+<ul>
+	<li>[StackOverflow] [1]</li>
+	<li>[LinkedIn] [2]</li>
+</ul>
+
+
+[1]: http://stackoverflow.com/users/590774/issa-fram
+[2]: http://www.linkedin.com/in/issafram
