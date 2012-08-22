@@ -20,6 +20,6 @@ The code in this project is licensed under the GPL v3, per the terms of the incl
 ## Author
 ### Issa Fram
 <ul>
-	<li>[StackOverflow](http://stackoverflow.com/users/590774/issa-fram)</li>
-	<li>[LinkedIn](http://www.linkedin.com/in/issafram)</li>
+	<li> [StackOverflow](http://stackoverflow.com/users/590774/issa-fram) </li>
+	<li> [LinkedIn](http://www.linkedin.com/in/issafram) </li>
 </ul>
